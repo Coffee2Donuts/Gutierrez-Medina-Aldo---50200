@@ -1,0 +1,26 @@
+{% extends 'aplicacion/home3.html' %}
+
+{%block usuarss%}
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Email</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+            {% for u in usuarss  %}
+                    <tr>
+                        <td>{{ u.id }}</td>
+                        <td>{{ u.nombre }}</td>
+                        <td>{{ u.apellido }}</td>
+                        <td>{{ u.email }}</td>
+                    </tr>
+            {% endfor %}
+        
+        </tbody>
+    </table>
+{%endblock usuarss%}

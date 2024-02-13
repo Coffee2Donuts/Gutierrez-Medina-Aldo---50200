@@ -14,13 +14,19 @@ def home3(request):
     return render(request, "aplicacion/home3.html")
 
 def usuario(request):
-    contexto = {'usuers': Usuario.objects.all()}
-    contexto = {'chefsito': Chef.objects.all()}
     return render(request, "aplicacion/usuario.html")
 
 def ver_recetas(request):
     contexto = {'recetass': Recetas.objects.all()}
     return render(request, "aplicacion/ver_recetas.html", contexto)
+
+def see_usuarios(request):
+    contexto = {'usuarss': Usuario.objects.all()}
+    return render(request, "aplicacion/see_usuarios.html", contexto)
+
+def see_chefs(request):
+    contexto = {'chefsito': Chef.objects.all()}
+    return render(request, "aplicacion/see_chefs.html", contexto)
 
 def crear_recetas(request):
     contexto = {'recetas': Recetas.objects.all()}
@@ -87,7 +93,7 @@ def buscar(request):
 def buscarRecetas(request):
     if request.GET["buscar"]:
         patron = request.GET["buscar"]
-        recetas = Recetas.objects.filter(nombre__icontains=patron)
-        contexto = {"receta": recetas }
+        find = Recetas.objects.filter(nombre__icontains=patron)
+        contexto = {"recetass": find }
         return render(request, "aplicacion/ver_recetas.html", contexto)
     return HttpResponse("No se ingresaron patrones de busqueda")

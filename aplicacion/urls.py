@@ -12,6 +12,8 @@ urlpatterns = [
     path('recetasForm/', receta_Form, name="recetasForm"),
     path('usuarioForm/', usuarioForm, name="usuarioForm"),
     path('chef_Form/', chef_Form, name="chef_Form"),
+    path('see_usuarios/', see_usuarios, name="see_usuarios"),
+    path('see_chefs/', see_chefs, name="see_chefs"),
     
     path('buscar/', buscar, name="buscar"),
     path('buscarRecetas/', buscarRecetas, name="buscarRecetas"),

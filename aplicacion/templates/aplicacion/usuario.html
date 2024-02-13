@@ -3,57 +3,7 @@
 {%block button%}
     <li class="nav-item px-lg-7"><a class="nav-link text-uppercase" href="{% url 'usuarioForm' %}">Nuevo Usuario</a></li>
     <li class="nav-item px-lg-7"><a class="nav-link text-uppercase" href="{% url 'chef_Form' %}">Nuevo Chef</a></li>
+    <li class="nav-item px-lg-7"><a class="nav-link text-uppercase" href="{% url 'see_usuarios' %}">Ver Usuarios</a></li>
+    <li class="nav-item px-lg-7"><a class="nav-link text-uppercase" href="{% url 'see_chefs' %}">Ver Chefs</a></li>
 {%endblock button%}
     
-
-{%block usuario%}
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Nombre</th>
-                <th>Apellido</th>
-                <th>Email</th>
-            </tr>
-        </thead>
-        <tbody>
-            
-            {% for u in usuers  %}
-                    <tr>
-                        <td>{{ u.id }}</td>
-                        <td>{{ u.nombre }}</td>
-                        <td>{{ u.apellido }}</td>
-                        <td>{{ u.email }}</td>
-                    </tr>
-            {% endfor %}
-        
-        </tbody>
-    </table>
-{%endblock usuario%}
-
-{%block chef%}
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Nombre</th>
-                <th>Apellido</th>
-                <th>Email</th>
-                <th>Especialidad</th>
-            </tr>
-        </thead>
-        <tbody>
-            
-            {% for z in chefsito  %}
-                    <tr>
-                        <td>{{ z.id }}</td>
-                        <td>{{ z.nombre }}</td>
-                        <td>{{ z.apellido }}</td>
-                        <td>{{ z.email }}</td>
-                        <td>{{ z.especialidad }}</td>
-                    </tr>
-            {% endfor %}
-        
-        </tbody>
-    </table>
-{%endblock chef%}
