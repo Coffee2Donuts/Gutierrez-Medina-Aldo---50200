@@ -1,12 +1,15 @@
 from django.db import models
 
 # Create your models here.
-class V_recetas(models.Model):
-    tipo = models.CharField(max_length=50)
-    n_recetas = models.IntegerField()
+class Recetas(models.Model):
+    nombre = models.CharField(max_length=60)
+    dificultad = models.IntegerField()
+    porciones = models.IntegerField()
+    ingredientes = models.CharField(max_length=500)
+    procedimiento = models.CharField(max_length=500)
 
     def __str__(self):
-        return f"{self.tipo}"
+        return f"{self.nombre}"
 
 class Usuario(models.Model):
     nombre = models.CharField(max_length=50)
@@ -29,11 +32,3 @@ class Chef(models.Model):
 
     def __str__(self):
         return f"{self.apellido}, {self.nombre}"
-    
-class C_receta(models.Model):
-    Tipo = models.CharField(max_length=50)
-    Ingredientes = models.IntegerField()
-    Dificultad = models.IntegerField()
-
-    def __str__(self):
-        return f"{self.Tipo}"

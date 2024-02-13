@@ -1,0 +1,18 @@
+{% extends 'aplicacion/home3.html' %}
+
+{% block titulo %}
+    <h1 class="mb-5">Agregar un Usuario</h1>
+{% endblock titulo %}
+    
+
+{% block cont_usuer %}
+<form action="" method="post">
+    {% csrf_token %}
+
+    <table>
+        {{ form.as_table }}
+    </table>
+    
+    <input type="submit" value="Enviar">
+</form>
+{% endblock cont_usuer %}
