@@ -1,9 +1,56 @@
 
 {% extends 'aplicacion/home3.html' %}
 
-
-{% block aaaa %}
-
-<li class="nav-item px-lg-7"><a class="nav-link text-uppercase" href="{% url 'chef_Form' %}">Nuevo Chef</a></li>
-<li class="nav-item px-lg-7"><a class="nav-link text-uppercase" href="{% url 'see_chefs' %}">Ver Chefs</a></li>
-{% endblock aaaa %}
+{%block chef%}
+<table>
+    <tr>
+        <td width="200"><h2>Chefs</h2></td>
+        <td>
+            <a
+            href="{% url 'chef_Form' %}"
+            class="btn btn-primary btn-sm"
+            ><i class="fa fa-plus fa-lg" title="Crear"> </i>
+            </a>
+        </td>
+    </tr>
+</table>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Email</th>
+                <th>Especialidad</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+            {% for z in chefsito %}
+                    <tr>
+                        <td>{{ z.id }}</td>
+                        <td>{{ z.nombre }}</td>
+                        <td>{{ z.apellido }}</td>
+                        <td>{{ z.email }}</td>
+                        <td>{{ z.especialidad }}</td>
+                        <td>
+                            <a
+                              href="{% url 'chefActualizar' z.id %}"
+                              class="btn btn-primary"
+                              style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;"
+                              ><i class="fa fa-edit fa-sm" title="Edit Record"></i>
+                            </a>
+                            <a
+                              href="{% url 'chefBorrar' z.id %}"
+                              class="btn btn-danger"
+                              style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;"
+                              ><i class="fa fa-trash fa-sm" title="Delete Record"></i>
+                            </a>                
+                          </td>
+                    </tr>
+            {% endfor %}
+        
+        </tbody>
+    </table>
+{%endblock chef%}

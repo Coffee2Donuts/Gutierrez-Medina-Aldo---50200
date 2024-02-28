@@ -13,6 +13,8 @@ urlpatterns = [
     path('chefs/', chefs, name="chefs"),
     path('chef_Form/', chef_Form, name="chef_Form"),
     path('see_chefs/', see_chefs, name="see_chefs"),
+    path('chef_actualizar/<id_chef>/', updateChef, name="chefActualizar"),
+    path('chef_borrar/<id_chef>/', borrarChef, name="chefBorrar"),
     
     path('ver_recetas/', ver_recetas, name="ver_recetas"),
     path('crear_recetas/', crear_recetas, name="crear_recetas"),

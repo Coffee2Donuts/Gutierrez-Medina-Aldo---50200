@@ -1,6 +1,18 @@
 {% extends 'aplicacion/home3.html' %}
 
 {%block chef%}
+<table>
+    <tr>
+        <td width="200"><h2>Chefs</h2></td>
+        <td>
+            <a
+            href="{% url 'chef_Form' %}"
+            class="btn btn-primary btn-sm"
+            ><i class="fa fa-plus fa-lg" title="Crear"> </i>
+            </a>
+        </td>
+    </tr>
+</table>
     <table class="table table-striped">
         <thead>
             <tr>
