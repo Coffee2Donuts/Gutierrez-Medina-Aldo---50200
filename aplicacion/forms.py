@@ -4,8 +4,8 @@ class RecetaForm(forms.Form):
     nombre = forms.CharField(max_length=60, required=True)
     dificultad = forms.IntegerField(min_value=1, max_value=10, required=True)
     porciones = forms.IntegerField(required=True)
-    ingredientes = forms.CharField(max_length=500, required=True)
-    procedimiento = forms.CharField(max_length=500, required=True)
+    ingredientes = forms.CharField(max_length=500, widget=forms.Textarea(attrs={'rows':5, 'cols':50 }), required=True)
+    procedimiento = forms.CharField(max_length=500, widget=forms.Textarea(attrs={'rows':5, 'cols':50 }), required=True)
 
 class UsuarioForm(forms.Form):
     nombre = forms.CharField(max_length=50, required=True)

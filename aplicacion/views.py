@@ -16,6 +16,9 @@ def home3(request):
 def usuario(request):
     return render(request, "aplicacion/usuario.html")
 
+def chefs(request):
+    return render(request, "aplicacion/chefs.html")
+
 def ver_recetas(request):
     contexto = {'recetass': Recetas.objects.all()}
     return render(request, "aplicacion/ver_recetas.html", contexto)

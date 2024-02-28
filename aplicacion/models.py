@@ -10,6 +10,7 @@ class Recetas(models.Model):
 
     def __str__(self):
         return f"{self.nombre}"
+    
 
 class Usuario(models.Model):
     nombre = models.CharField(max_length=50)

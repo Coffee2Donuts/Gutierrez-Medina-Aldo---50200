@@ -32,6 +32,7 @@
                         <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="{% url 'ver_recetas' %}">Ver Recetas</a></li>
                         <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="{% url 'crear_recetas' %}">Crear Recetas</a></li>
                         <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="{% url 'usuario' %}">Usuario</a></li>
+                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="{% url 'chefs' %}">Chefs</a></li>
                     </ul>
                 </div>
             </div>
@@ -42,17 +43,14 @@
                     <div class="row">
                         <div class="col-xl-20 col-lg-20 mx-auto">
                             <div class="bg-faded rounded p-5">
-                                <h2 class="section-heading mb-5">
-
-                                    {% block contenido %}
-                                    
-                                    {% endblock contenido %}
-
-                                   
+                                <h2 class="section-heading mb-1">
                                     {% block titulo %}
 
                                     {% endblock titulo %}
+
+                                    {% block contenido %}
                                     
+                                    {% endblock contenido %}  
         
                                     {%block lista%}
                                     

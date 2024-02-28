@@ -33,6 +33,7 @@
                         <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="{% url 'ver_recetas' %}">Ver Recetas</a></li>
                         <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="{% url 'crear_recetas' %}">Crear Recetas</a></li>
                         <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="{% url 'usuario' %}">Usuario</a></li>
+                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="{% url 'chefs' %}">Chefs</a></li>
                     </ul>
                 </div>
             </div>
@@ -42,6 +43,10 @@
                 <div class="row">
                     <div class="col-xl-9 mx-auto">
                         <div class="cta-inner bg-faded text-center rounded">
+                            {%block aaaa%}
+
+                            {%endblock aaaa%}
+                            
                             {%block cont_chef%}
 
                             {%endblock cont_chef%}
@@ -57,7 +62,6 @@
                             {%block usuarss%}
 
                             {%endblock usuarss%}
-
 
                             {%block chef%}
 
