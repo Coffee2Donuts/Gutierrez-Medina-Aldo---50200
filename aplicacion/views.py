@@ -4,8 +4,13 @@ from .models import *
 from django.http import HttpResponse
 from .forms import *
 
+from django.views.generic import ListView
+from django.views.generic import CreateView
+from django.views.generic import UpdateView
+from django.views.generic import DeleteView
+
 # Create your views here.
-#__________________________________________________Plantillas
+#_____________________________________________________________________________________________Plantillas
 def home(request):
     return render(request, "aplicacion/home.html")
 
@@ -16,33 +21,32 @@ def home3(request):
     return render(request, "aplicacion/home3.html")
 
 
-#___________________________________________________Usuarios
+#______________________________________________________________________________________________Usuarios
 def usuario(request):
-    return render(request, "aplicacion/usuario.html")
+    return render(request, "aplicacion/usuario.html",)
 
 def see_usuarios(request):
-    contexto = {'usuarss': Usuario.objects.all()}
-    return render(request, "aplicacion/see_usuarios.html", contexto)
+    return render(request, "aplicacion/see_usuarios.html")
 
-def usuarioForm(request):
-    if request.method == "POST":
-        miForm = UsuarioForm(request.POST)
-        if miForm.is_valid():
-            usuer_nombre = miForm.cleaned_data.get("nombre")
-            usuer_apellido = miForm.cleaned_data.get("apellido")
-            usuer_email = miForm.cleaned_data.get("email")
-            usuer = Usuario(nombre=usuer_nombre, apellido=usuer_apellido,
-                                email=usuer_email,)
-            usuer.save()
-            return render(request, "aplicacion/home.html")
-        else:    
-            miForm = UsuarioForm()
+class UsuariosList(ListView):
+    model = Usuario
 
-    return render(request, "aplicacion/usuarioForm.html", {"form": miForm })
+class UsuarioCreate(CreateView):
+    model = Usuario
+    fields = ['nombre', 'apellido', 'email']
+    success_url = reverse_lazy('usuario')
+
+class UsuarioEdit(UpdateView):
+    model = Usuario
+    fields = ['nombre', 'apellido', 'email']
+    success_url = reverse_lazy('usuario')
+
+class UsuarioDelete(DeleteView):
+    model = Usuario
+    success_url = reverse_lazy('usuario')
 
 
-
-#_________________________________________________Chefs
+#_______________________________________________________________________________________________Chefs
 def chefs(request):
     contexto = {'chefsito': Chef.objects.all()}
     return render(request, "aplicacion/chefs.html", contexto)
@@ -94,7 +98,7 @@ def borrarChef(request, id_chef):
     return redirect(reverse_lazy('chefs'))
 
 
-#______________________________________________________________Recetas
+#_______________________________________________________________________________________________Recetas
 def ver_recetas(request):
     contexto = {'recetass': Recetas.objects.all()}
     return render(request, "aplicacion/ver_recetas.html", contexto)

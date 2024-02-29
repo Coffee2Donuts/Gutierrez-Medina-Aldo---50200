@@ -18,7 +18,7 @@ class Usuario(models.Model):
     email = models.EmailField()
 
     def __str__(self):
-        return f"{self.apellido}, {self.nombre}"
+        return f"{self.nombre}, {self.apellido}"
 
 class Chef(models.Model):
     nombre = models.CharField(max_length=50)
