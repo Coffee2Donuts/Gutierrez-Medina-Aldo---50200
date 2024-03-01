@@ -15,6 +15,12 @@ http://127.0.0.1:8000/aplicacion/see_chefs/
 http://127.0.0.1:8000/aplicacion/buscar/
 y más
 
+
+Usuario admin:
+Kouhi
+Jinsei4894
+
+
 Contiene:
 
 -Clases en modelos:
