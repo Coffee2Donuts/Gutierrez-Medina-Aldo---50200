@@ -86,26 +86,4 @@ También hay un error con mostrar el avatar default:
 Not Found: /media/avatares/default.png
 Not Found: /aplicacion/ver_recetas/js/scripts.js
 
-=======
-http://localhost:8000/aplicacion/recetasForm/
-http://localhost:8000/aplicacion/usuarioForm/
-http://localhost:8000/aplicacion/chef_Form/
-http://localhost:8000/aplicacion/see_usuarios/
-http://localhost:8000/aplicacion/see_chefs/
-http://localhost:8000/aplicacion/buscar/
 
-
-Contiene:
-
--3 Clases en modelos:
-    Recetas
-    Usuario
-    Chef
-
--1 Formulario para cada modelo
-
--Formulario para buscar recetas en la base de datos
-    http://localhost:8000/aplicacion/buscar/
-
--Las aplicaciones heredan templates de home2.html y home3.html
->>>>>>> 95c3dafc9bc75b7dbeef0a7d408ce8b5ad207f45
