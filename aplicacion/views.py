@@ -208,11 +208,11 @@ def editarPerfil(request):
             user.last_name = informacion['last_name']
             user.set_password(informacion['password1'])
             user.save()
-            return render(request, "aplicacion/bienvenido.html")
+            return render(request, "aplicacion/home.html")
     else:    
         form = UserEditForm(instance=usuario)
 
-    return render(request, "aplicacion/edit_Perfil.html", {"form": form })
+    return render(request, "aplicacion/edit_perfil.html", {"form": form })
 
 @login_required
 def agregarAvatar(request):

@@ -1,12 +1,12 @@
 {% extends 'aplicacion/home3.html' %}
 
-{%block chef%}
+{%block usuers%}
 <table>
     <tr>
         <td width="200"><h2>Usuario</h2></td>
         <td>
             <a
-            href="{% url 'usuario_create' %}"
+            href="{% url 'registro' %}"
             class="btn btn-primary btn-sm"
             ><i class="fa fa-plus fa-lg" title="Crear"> </i>
             </a>
@@ -24,7 +24,7 @@
             </tr>
         </thead>
         <tbody>
-            
+            <!--Mostrar usuarios -->
             {% for y in usuario_list %}
                     <tr>
                         <td>{{ y.id }}</td>
@@ -32,6 +32,8 @@
                         <td>{{ y.apellido }}</td>
                         <td>{{ y.email }}</td>
                         <td>
+
+                            <!--Editar usuarios -->
                             <a
                               href="{% url 'usuario_edit' y.id %}"
                               class="btn btn-primary"
@@ -50,4 +52,4 @@
         
         </tbody>
     </table>
-{%endblock chef%}
+{%endblock usuers%}

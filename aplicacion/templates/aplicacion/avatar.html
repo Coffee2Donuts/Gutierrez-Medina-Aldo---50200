@@ -4,8 +4,8 @@
     <h1 class="mb-5">Avatar</h1>
 {% endblock titulo %}
     
-
-{% block usuarss %}
+<!--Formulario oara editar el avatar de perfil-->
+{% block usuers %}
 <form action="" method="post" enctype="multipart/form-data">
     {% csrf_token %}
 
@@ -15,4 +15,4 @@
     
     <input type="submit" value="Actualizar Avatar">
 </form>
-{% endblock usuarss %}
+{% endblock usuers %}

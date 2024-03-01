@@ -1,11 +1,11 @@
 {% extends 'aplicacion/home3.html' %}
 
-{% block regis %}
+{% block titulo %}
     <h1 class="mb-5">Registro</h1>
-{% endblock regis %}
+{% endblock titulo %}
     
 
-{% block usuarss %}
+{% block usuers %}
 <form action="" method="post">
     {% csrf_token %}
 
@@ -15,4 +15,4 @@
     
     <input type="submit" value="Enviar">
 </form>
-{% endblock usuarss %}
+{% endblock usuers %}
