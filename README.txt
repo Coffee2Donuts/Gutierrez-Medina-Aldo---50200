@@ -1,4 +1,4 @@
-Tercera pre-entrega Gutierrez Medina Aldo
+Proyecto de Gutierrez Medina Aldo
 
 Pagina web para ver y compartir recetas
 
@@ -18,7 +18,7 @@ y más
 
 Usuario admin:
 Kouhi
-Jinsei4894
+coder.login
 
 
 Contiene:
