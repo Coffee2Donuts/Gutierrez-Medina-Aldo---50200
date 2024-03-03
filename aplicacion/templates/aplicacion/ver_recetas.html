@@ -12,12 +12,14 @@
         </thead>
         <tbody>
             
-            {% for d in recetass  %}
-                    <tr>
-                        <td>{{ d.nombre }}</td>
-                        <td>{{ d.porciones }}</td>
-                        <td>{{ d.dificultad }}</td>
-                    </tr>
+            {% for d in recetass %}
+                <tr>
+                    <td>{{ d.nombre }}</td>
+                    <td>{{ d.porciones }}</td>
+                    <td>{{ d.dificultad }}</td>
+                    <td>{{ d.id }}</td>
+                    <td><a href="{% url 'mostrar_receta' receta_id=d.id %}" class="btn btn-primary">Ver Receta</a></td>
+                </tr>
             {% endfor %}
         
         </tbody>

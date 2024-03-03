@@ -10,12 +10,9 @@
     {% csrf_token %}
 
     <table> 
-        <form> 
-            {{ form.as_table }}
-        </form> 
+        {{ form.as_table }}
     </table> 
     
     <input type="submit" value="Enviar">
-    <h1 class="mb-5"></h1>
 </form>
 {% endblock contenido %}

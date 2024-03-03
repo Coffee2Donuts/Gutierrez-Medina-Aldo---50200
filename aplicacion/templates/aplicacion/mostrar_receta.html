@@ -1,0 +1,9 @@
+{% extends 'aplicacion/home2.html' %}
+
+{% block lista %}
+    <h2>{{ receta.nombre }}</h2>
+    <p><strong>Porciones:</strong> {{ receta.porciones }}</p>
+    <p><strong>Dificultad:</strong> {{ receta.dificultad }}</p>
+    <p><strong>Ingredientes:</strong> {{ receta.ingredientes }}</p>
+    <p><strong>Procedimiento:</strong> {{ receta.procedimiento }}</p>
+{% endblock lista %}

@@ -1,5 +1,6 @@
 from django.urls import path, include
 from .views import *
+from . import views
 from django.contrib.auth.views import LogoutView
 
 urlpatterns = [
@@ -29,6 +30,7 @@ urlpatterns = [
     path('recetasForm/', receta_Form, name="recetasForm"),
     path('buscar/', buscar, name="buscar"),
     path('buscarRecetas/', buscarRecetas, name="buscarRecetas"),
+    path('mostrar_receta/<int:receta_id>/', views.mostrar_receta, name='mostrar_receta'),
 
     #urls de login, registro de nuevo usuario y logout(que no sirve)
     path('login/', login_request, name="login"),

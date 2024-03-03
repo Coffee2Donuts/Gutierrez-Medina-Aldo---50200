@@ -4,6 +4,8 @@ from .models import *
 from django.http import HttpResponse
 from .forms import *
 
+from django.shortcuts import get_object_or_404
+
 from django.views.generic import ListView
 from django.views.generic import CreateView
 from django.views.generic import UpdateView
@@ -129,8 +131,14 @@ def receta_Form(request):
             receta_porciones = miForm.cleaned_data.get("porciones")
             receta_ingredientes = miForm.cleaned_data.get("ingredientes")
             receta_procedimiento = miForm.cleaned_data.get("procedimiento")
-            receta = Recetas(nombre=receta_nombre, dificultad=receta_dificultad, porciones=receta_porciones, ingredientes=receta_ingredientes,
-                              procedimiento=receta_procedimiento)
+            
+            # Obtener el usuario actualmente autenticado
+            usuario = request.user
+
+            # Crear la receta asociada al usuario actual
+            receta = Recetas(nombre=receta_nombre, dificultad=receta_dificultad, porciones=receta_porciones, 
+                             ingredientes=receta_ingredientes, procedimiento=receta_procedimiento,
+                             usuario=usuario)
             
             receta.save()
             return render(request, "aplicacion/home.html")
@@ -139,6 +147,11 @@ def receta_Form(request):
         miForm = RecetaForm()
 
     return render(request, "aplicacion/recetasForm.html", {"form": miForm })
+
+def mostrar_receta(request, receta_id):
+    receta = get_object_or_404(Recetas, id=receta_id)
+    return render(request, "aplicacion/mostrar_receta.html", {'receta': receta})
+
 
 
 @login_required

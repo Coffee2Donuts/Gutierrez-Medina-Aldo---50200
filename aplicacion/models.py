@@ -9,6 +9,7 @@ class Recetas(models.Model):
     porciones = models.IntegerField()
     ingredientes = models.CharField(max_length=500)
     procedimiento = models.CharField(max_length=500)
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
 
     def __str__(self):
         return f"{self.nombre}"
