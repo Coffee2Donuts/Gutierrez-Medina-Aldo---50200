@@ -1,7 +1,13 @@
 {% extends 'aplicacion/home2.html' %}
 
-{% block lista %}
-                                            
+{% block contenido %}
+    <!-- Agregar el formulario de búsqueda -->
+    <form action="{% url 'buscarRecetas' %}" method="GET">
+        <input type="text" name="buscar" placeholder="Buscar recetas...">
+        <button type="submit" class="btn btn-primary">Buscar</button>
+    </form>
+
+    <!-- Mostrar la lista de recetas -->
     <table class="table table-striped">
         <thead>
             <tr>
@@ -11,17 +17,14 @@
             </tr>
         </thead>
         <tbody>
-            
             {% for d in recetass %}
                 <tr>
                     <td>{{ d.nombre }}</td>
                     <td>{{ d.porciones }}</td>
                     <td>{{ d.dificultad }}</td>
-                    <td>{{ d.id }}</td>
                     <td><a href="{% url 'mostrar_receta' receta_id=d.id %}" class="btn btn-primary">Ver Receta</a></td>
                 </tr>
             {% endfor %}
-        
         </tbody>
     </table>
-{%endblock lista %}
+{% endblock contenido %}

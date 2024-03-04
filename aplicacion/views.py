@@ -132,10 +132,10 @@ def receta_Form(request):
             receta_ingredientes = miForm.cleaned_data.get("ingredientes")
             receta_procedimiento = miForm.cleaned_data.get("procedimiento")
             
-            # Obtener el usuario actualmente autenticado
+            # Obtener el usuario actualmente logueado
             usuario = request.user
 
-            # Crear la receta asociada al usuario actual
+            # Guardar la receta como 'creada' por el usuario logueado
             receta = Recetas(nombre=receta_nombre, dificultad=receta_dificultad, porciones=receta_porciones, 
                              ingredientes=receta_ingredientes, procedimiento=receta_procedimiento,
                              usuario=usuario)
@@ -148,11 +148,20 @@ def receta_Form(request):
 
     return render(request, "aplicacion/recetasForm.html", {"form": miForm })
 
+
+@login_required
 def mostrar_receta(request, receta_id):
     receta = get_object_or_404(Recetas, id=receta_id)
-    return render(request, "aplicacion/mostrar_receta.html", {'receta': receta})
 
+    # Mostrar los ingredientes y procedimiento en formato de lista
+    ingredientes_lista = receta.ingredientes.split('\n')
+    procedimiento_lista = receta.procedimiento.split('\n')
 
+    return render(request, "aplicacion/mostrar_receta.html", {
+        'receta': receta,
+        'ingredientes_lista': ingredientes_lista,
+        'procedimiento_lista': procedimiento_lista
+    })
 
 @login_required
 def buscar(request):
@@ -185,7 +194,7 @@ def login_request(request):
                 request.session["avatar"] = avatar
             return render(request, "aplicacion/bienvenido.html")
         
-        #______________________________________________________________
+        #___________________________________________________________
         else:
             return redirect(reverse_lazy('login'))
         

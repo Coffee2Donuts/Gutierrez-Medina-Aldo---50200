@@ -1,3 +1,5 @@
+<!-- recetasForm.html -->
+
 {% extends 'aplicacion/crear_recetas.html' %}
 
 {% block titulo %}
@@ -6,13 +8,81 @@
     
 
 {% block contenido %}
-<form action="" method="post">
+<form id="recetaForm" action="" method="post">
     {% csrf_token %}
 
     <table> 
-        {{ form.as_table }}
+        {% for field in form %}
+            <tr>
+                <td>{{ field.label_tag }}</td>
+                <td>
+                    {% if field.name == 'ingredientes' or field.name == 'procedimiento' %}
+                        <textarea name="{{ field.name }}" id="{{ field.name }}" rows="5" cols="50"></textarea>
+                    {% else %}
+                        {{ field }}
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
     </table> 
     
     <input type="submit" value="Enviar">
 </form>
+
+<script>
+    
+   
+   
+   
+    // Ayuda de JavaScript para agregar un guion "-" a cada línea en ingredientes y procedimiento
+    
+    
+    document.addEventListener("DOMContentLoaded", function() {
+        var ingredientesTextarea = document.getElementById('ingredientes');
+        var procedimientoTextarea = document.getElementById('procedimiento');
+
+        function addDashToCurrentLine(textarea) {
+            var cursorPosition = textarea.selectionStart; // Obtener la posición del cursor
+            var value = textarea.value;
+            var textBeforeCursor = value.substring(0, cursorPosition);
+            var textAfterCursor = value.substring(cursorPosition);
+            var linesBeforeCursor = textBeforeCursor.split('\n');
+            var currentLine = linesBeforeCursor[linesBeforeCursor.length - 1].trim();
+                
+            if (currentLine !== '') {
+                textBeforeCursor += '\n- ';
+                textarea.value = textBeforeCursor + textAfterCursor;
+                textarea.setSelectionRange(cursorPosition + 3, cursorPosition + 3);
+            }
+        }
+
+        function addDashToFirstLine(textarea) {
+            if (!textarea.value.trim()) {
+                textarea.value = '- ';
+            }
+        }
+
+        if (ingredientesTextarea) {
+            addDashToFirstLine(ingredientesTextarea);
+
+            ingredientesTextarea.addEventListener('keydown', function(event) {
+                if (event.keyCode === 13) { // Código de la tecla Enter
+                    event.preventDefault(); 
+                    addDashToCurrentLine(this);
+                }
+            });
+        }
+
+        if (procedimientoTextarea) {
+            addDashToFirstLine(procedimientoTextarea);
+
+            procedimientoTextarea.addEventListener('keydown', function(event) {
+                if (event.keyCode === 13) {
+                    event.preventDefault(); 
+                    addDashToCurrentLine(this);
+                }
+            });
+        }
+    });
+</script>
 {% endblock contenido %}
