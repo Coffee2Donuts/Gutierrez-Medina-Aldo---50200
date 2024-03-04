@@ -1,0 +1,15 @@
+{% extends 'aplicacion/home2.html' %}
+
+{% block titulo %}
+    <h1 class="mb-5">Editar Receta</h1>
+{% endblock titulo %}
+
+{% block contenido %}
+<form action="" method="post">
+    {% csrf_token %}
+    <table>
+        {{ form.as_table }}
+    </table>
+    <input type="submit" value="Actualizar Receta">
+</form>
+{% endblock contenido %}

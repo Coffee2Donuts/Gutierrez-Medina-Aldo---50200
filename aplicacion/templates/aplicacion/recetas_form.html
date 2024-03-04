@@ -1,6 +1,4 @@
-<!-- recetasForm.html -->
-
-{% extends 'aplicacion/crear_recetas.html' %}
+{% extends 'aplicacion/home2.html' %}
 
 {% block titulo %}
     <h1 class="mb-5">Crear una receta</h1>
@@ -8,7 +6,7 @@
     
 
 {% block contenido %}
-<form id="recetaForm" action="" method="post">
+<form action="" method="post">
     {% csrf_token %}
 
     <table> 

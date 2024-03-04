@@ -25,12 +25,14 @@ urlpatterns = [
     path('chef_borrar/<id_chef>/', borrarChef, name="chefBorrar"),
     
     #urls relacionadas con recetas
-    path('ver_recetas/', ver_recetas, name="ver_recetas"),
-    path('crear_recetas/', crear_recetas, name="crear_recetas"),
-    path('recetasForm/', receta_Form, name="recetasForm"),
+    path('ver_recetas/', views.ver_recetas, name='ver_recetas'),
+    path('mis_recetas/', views.mis_recetas, name='mis_recetas'),
+    path('recetas_form/', receta_Form, name="recetas_form"),
     path('buscar/', buscar, name="buscar"),
     path('buscarRecetas/', buscarRecetas, name="buscarRecetas"),
     path('mostrar_receta/<int:receta_id>/', views.mostrar_receta, name='mostrar_receta'),
+    path('receta_edit/<int:pk>/', RecetaEdit.as_view(), name="receta_edit"),
+    path('receta_delete/<int:pk>/', RecetaDelete.as_view(), name="receta_delete"),
 
     #urls de login, registro de nuevo usuario y logout(que no sirve)
     path('login/', login_request, name="login"),

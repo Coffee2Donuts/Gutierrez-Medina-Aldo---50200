@@ -13,7 +13,7 @@ from django.views.generic import DeleteView
 
 from django.contrib.auth.forms      import AuthenticationForm
 from django.contrib.auth            import authenticate, login
-from django.contrib.auth.mixins     import LoginRequiredMixin
+from django.contrib.auth.mixins     import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.decorators import login_required
 
 
@@ -117,9 +117,11 @@ def ver_recetas(request):
     return render(request, "aplicacion/ver_recetas.html", contexto)
 
 @login_required
-def crear_recetas(request):
-    contexto = {'recetas': Recetas.objects.all()}
-    return render(request, "aplicacion/crear_recetas.html", contexto)
+def mis_recetas(request):
+    # Filtra las recetas del usuario logueado
+    recetass = Recetas.objects.filter(usuario=request.user)
+    contexto = {'recetass': recetass}
+    return render(request, "aplicacion/mis_recetas.html", contexto)
 
 @login_required
 def receta_Form(request):
@@ -140,14 +142,26 @@ def receta_Form(request):
                              ingredientes=receta_ingredientes, procedimiento=receta_procedimiento,
                              usuario=usuario)
             
+
+            
             receta.save()
-            return render(request, "aplicacion/home.html")
+            
+            return redirect("ver_recetas")
 
     else:    
         miForm = RecetaForm()
 
-    return render(request, "aplicacion/recetasForm.html", {"form": miForm })
+    return render(request, "aplicacion/recetas_form.html", {"form": miForm })
 
+class RecetaEdit(LoginRequiredMixin, UpdateView):
+    model = Recetas
+    fields = ['nombre', 'dificultad', 'porciones', 'ingredientes', 'procedimiento']
+    success_url = reverse_lazy('mis_recetas')
+
+
+class RecetaDelete(LoginRequiredMixin, DeleteView):
+    model = Recetas
+    success_url = reverse_lazy('mis_recetas')
 
 @login_required
 def mostrar_receta(request, receta_id):
