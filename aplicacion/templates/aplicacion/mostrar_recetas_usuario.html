@@ -1,7 +1,6 @@
 {% extends 'aplicacion/home2.html' %}
 
-{%block usuers%}
-
+{% block usuers %}
 
     <head>
         <meta charset="UTF-8">
@@ -24,6 +23,11 @@
                 <li>{{ paso }}</li>
             {% endfor %}
         </ol>
+        
+        <!-- Agregar la imagen -->
+        {% if receta.imagen %}
+            <img src="{{ receta.imagen.url }}" alt="{{ receta.nombre }}">
+        {% endif %}
     </body>
 
-{%endblock usuers%}
+{% endblock usuers %}

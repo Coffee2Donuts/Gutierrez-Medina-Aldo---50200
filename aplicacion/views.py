@@ -129,38 +129,31 @@ def mis_recetas(request):
 @login_required
 def receta_Form(request):
     if request.method == "POST":
-        miForm = RecetaForm(request.POST)
-        if miForm.is_valid():
-            receta_nombre = miForm.cleaned_data.get("nombre")
-            receta_dificultad = miForm.cleaned_data.get("dificultad")
-            receta_porciones = miForm.cleaned_data.get("porciones")
-            receta_ingredientes = miForm.cleaned_data.get("ingredientes")
-            receta_procedimiento = miForm.cleaned_data.get("procedimiento")
-            
-            # Obtener el usuario actualmente logueado
-            usuario = request.user
-
-            # Guardar la receta como 'creada' por el usuario logueado
-            receta = Recetas(nombre=receta_nombre, dificultad=receta_dificultad, porciones=receta_porciones, 
-                             ingredientes=receta_ingredientes, procedimiento=receta_procedimiento,
-                             usuario=usuario)
-            
-
-            
+        mi_form = RecetaForm(request.POST, request.FILES)
+        if mi_form.is_valid():
+            receta = mi_form.save(commit=False)
+            receta.usuario = request.user
             receta.save()
-            
             return redirect("ver_recetas")
-
-    else:    
-        miForm = RecetaForm()
-
-    return render(request, "aplicacion/recetas_form.html", {"form": miForm })
+    else:
+        mi_form = RecetaForm()
+    
+    return render(request, "aplicacion/recetas_form.html", {"form": mi_form })
 
 class RecetaEdit(LoginRequiredMixin, UpdateView):
     model = Recetas
-    fields = ['nombre', 'dificultad', 'porciones', 'ingredientes', 'procedimiento']
+    form_class = RecetaForm
     success_url = reverse_lazy('mis_recetas')
+    template_name = 'aplicacion/receta_edit.html'
 
+    def form_valid(self, form):
+        form.instance.usuario = self.request.user
+        return super().form_valid(form)
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['instance'] = self.get_object()  # Pasar la instancia de la receta al formulario
+        return kwargs
 
 class RecetaDelete(LoginRequiredMixin, DeleteView):
     model = Recetas

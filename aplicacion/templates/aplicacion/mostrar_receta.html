@@ -20,4 +20,9 @@
         {% endfor %}
     </ol>
 
-    {% endblock lista %}
+    <!-- Agregar la imagen -->
+    {% if receta.imagen %}
+        <img src="{{ receta.imagen.url }}" alt="{{ receta.nombre }}">
+    {% endif %}
+
+{% endblock lista %}

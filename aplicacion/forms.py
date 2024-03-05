@@ -3,12 +3,25 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from .models import Recetas
 
-class RecetaForm(forms.Form):
-    nombre = forms.CharField(max_length=60, required=True)
-    dificultad = forms.IntegerField(min_value=1, max_value=10, required=True)
-    porciones = forms.IntegerField(required=True)
-    ingredientes = forms.CharField(max_length=500, widget=forms.Textarea(attrs={'rows':5, 'cols':50 }), required=True)
-    procedimiento = forms.CharField(max_length=500, widget=forms.Textarea(attrs={'rows':5, 'cols':50 }), required=True)
+#class RecetaForm(forms.Form):
+    #nombre = forms.CharField(max_length=60, required=True)
+    #dificultad = forms.IntegerField(min_value=1, max_value=10, required=True)
+    #porciones = forms.IntegerField(required=True)
+    #ingredientes = forms.CharField(max_length=500, widget=forms.Textarea(attrs={'rows':5, 'cols':50 }), required=True)
+    #procedimiento = forms.CharField(max_length=500, widget=forms.Textarea(attrs={'rows':5, 'cols':50 }), required=True)
+
+class RecetaForm(forms.ModelForm):
+    class Meta:
+        model = Recetas
+        fields = ['nombre', 'dificultad', 'porciones', 'ingredientes', 'procedimiento', 'imagen']
+        widgets = {
+            'ingredientes': forms.Textarea(attrs={'rows': 5, 'cols': 50}),
+            'procedimiento': forms.Textarea(attrs={'rows': 5, 'cols': 50}),
+        }
+
+    def __init__(self, *args, **kwargs):
+        super(RecetaForm, self).__init__(*args, **kwargs)
+        self.fields['imagen'].required = False
 
 class RecetaEditForm(UserCreationForm):
     nombre = forms.CharField(max_length=60, required=False)
@@ -18,7 +31,7 @@ class RecetaEditForm(UserCreationForm):
     procedimiento = forms.CharField(max_length=500, widget=forms.Textarea(attrs={'rows':5, 'cols':50 }), required=False)
     class Meta:
         model = Recetas
-        fields = ['nombre', 'dificultad', 'porciones', 'ingredientes', 'procedimiento']
+        fields = ['nombre', 'dificultad', 'porciones', 'ingredientes', 'procedimiento', 'imagen']
     
 
 class UsuarioForm(forms.Form):

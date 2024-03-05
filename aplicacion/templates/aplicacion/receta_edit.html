@@ -12,4 +12,57 @@
     </table>
     <input type="submit" value="Actualizar Receta">
 </form>
+
+<script>
+
+    // Ayuda de JavaScript para agregar un guion "-" a cada línea en ingredientes y procedimiento
+    
+    document.addEventListener("DOMContentLoaded", function() {
+        var ingredientesTextarea = document.getElementById('id_ingredientes');
+        var procedimientoTextarea = document.getElementById('id_procedimiento');
+
+        function addDashToCurrentLine(textarea) {
+            var cursorPosition = textarea.selectionStart;
+            var value = textarea.value;
+            var textBeforeCursor = value.substring(0, cursorPosition);
+            var textAfterCursor = value.substring(cursorPosition);
+            var linesBeforeCursor = textBeforeCursor.split('\n');
+            var currentLine = linesBeforeCursor[linesBeforeCursor.length - 1].trim();
+                
+            if (currentLine !== '') {
+                textBeforeCursor += '\n- ';
+                textarea.value = textBeforeCursor + textAfterCursor;
+                textarea.setSelectionRange(cursorPosition + 3, cursorPosition + 3);
+            }
+        }
+
+        function addDashToFirstLine(textarea) {
+            if (!textarea.value.trim()) {
+                textarea.value = '- ';
+            }
+        }
+
+        if (ingredientesTextarea) {
+            addDashToFirstLine(ingredientesTextarea);
+
+            ingredientesTextarea.addEventListener('keydown', function(event) {
+                if (event.keyCode === 13) { // Enter key
+                    event.preventDefault(); 
+                    addDashToCurrentLine(this);
+                }
+            });
+        }
+
+        if (procedimientoTextarea) {
+            addDashToFirstLine(procedimientoTextarea);
+
+            procedimientoTextarea.addEventListener('keydown', function(event) {
+                if (event.keyCode === 13) { // Enter key
+                    event.preventDefault(); 
+                    addDashToCurrentLine(this);
+                }
+            });
+        }
+    });
+</script>
 {% endblock contenido %}

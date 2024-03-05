@@ -6,7 +6,7 @@
     
 
 {% block contenido %}
-<form action="" method="post">
+<form action="" method="post" enctype="multipart/form-data">
     {% csrf_token %}
 
     <table> 
@@ -22,18 +22,15 @@
                 </td>
             </tr>
         {% endfor %}
-    </table> 
+    </table>
+    
+
     
     <input type="submit" value="Enviar">
 </form>
 
 <script>
-    
-   
-   
-   
     // Ayuda de JavaScript para agregar un guion "-" a cada línea en ingredientes y procedimiento
-    
     
     document.addEventListener("DOMContentLoaded", function() {
         var ingredientesTextarea = document.getElementById('ingredientes');
