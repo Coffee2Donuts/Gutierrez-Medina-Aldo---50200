@@ -4,17 +4,19 @@ from .models import *
 from django.http import HttpResponse
 from .forms import *
 
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, redirect
 
 from django.views.generic import ListView
 from django.views.generic import CreateView
 from django.views.generic import UpdateView
 from django.views.generic import DeleteView
 
+from django.contrib.auth            import logout
 from django.contrib.auth.forms      import AuthenticationForm
 from django.contrib.auth            import authenticate, login
-from django.contrib.auth.mixins     import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib.auth.mixins     import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
+from django.db.models               import Count
 
 
 # Create your views here.
@@ -39,22 +41,23 @@ def bienvenido(request):
 def usuario(request):
     return render(request, "aplicacion/usuario.html",)
 
-class UsuariosList(LoginRequiredMixin, ListView):
-    model = Usuario
+def usuario_list(request):
+    usuarios = User.objects.annotate(num_recetas=Count('recetas')).all()
+    return render(request, 'aplicacion/usuario_list.html', {'usuarios': usuarios})
 
-class UsuarioCreate(LoginRequiredMixin, CreateView):
-    model = Usuario
-    fields = ['nombre', 'apellido', 'email']
-    success_url = reverse_lazy('usuario')
+def ver_recetas_usuario(request, usuario_id):
+    usuario = get_object_or_404(User, pk=usuario_id)
+    recetas_usuario = Recetas.objects.filter(usuario=usuario)
+    return render(request, 'aplicacion/ver_recetas_usuario.html', {'usuario': usuario, 'recetas_usuario': recetas_usuario})
 
-class UsuarioEdit(LoginRequiredMixin, UpdateView):
-    model = Usuario
-    fields = ['nombre', 'apellido', 'email']
-    success_url = reverse_lazy('usuario')
-
-class UsuarioDelete(LoginRequiredMixin, DeleteView):
-    model = Usuario
-    success_url = reverse_lazy('usuario')
+@login_required
+def buscarUsuarios(request):
+    if 'buscar' in request.GET:
+        patron = request.GET["buscar"]
+        usuarios = User.objects.filter(username__icontains=patron)
+        contexto = {"usuarios": usuarios}
+        return render(request, "aplicacion/usuario_list.html", contexto)
+    return HttpResponse("No se ingresaron patrones de búsqueda")
 
 
 #_______________________________________________________________________________________________Chefs
@@ -220,14 +223,16 @@ def register(request):
     if request.method == "POST":
         miForm = RegistroForm(request.POST)
         if miForm.is_valid():
-            usuario = miForm.cleaned_data.get("usuername")
             miForm.save()
             return redirect(reverse_lazy('login'))
-
     else:    
         miForm = RegistroForm()
 
     return render(request, "aplicacion/registro.html", {"form": miForm })  
+
+def logout_usuario(request):
+    logout(request)
+    return redirect("home")
 
 #_______________________________________________________________________________________________Editar perfil de usuario
 @login_required
@@ -257,7 +262,7 @@ def agregarAvatar(request):
         if form.is_valid():
             usuario = User.objects.get(username=request.user)
 
-            # ________________________________________________Eliminar el avatar antigüo
+            # ___________________________________________________________________Eliminar el avatar antigüo
             avatarViejo = Avatar.objects.filter(user=usuario)
             if len(avatarViejo) > 0:
                 for i in range(len(avatarViejo)):
@@ -266,7 +271,7 @@ def agregarAvatar(request):
             avatar = Avatar(user=usuario, imagen=form.cleaned_data['imagen'])
             avatar.save()
 
-            # __________________________________________________url de la imagen en request
+            # ____________________________________________________________________url de la imagen en request
             imagen = Avatar.objects.get(user=request.user.id).imagen.url
             request.session["avatar"] = imagen
             return render(request, "aplicacion/bienvenido.html")

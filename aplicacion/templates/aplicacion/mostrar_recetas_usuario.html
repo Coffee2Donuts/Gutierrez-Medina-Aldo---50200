@@ -1,0 +1,29 @@
+{% extends 'aplicacion/home2.html' %}
+
+{%block usuers%}
+
+
+    <head>
+        <meta charset="UTF-8">
+        <title>Mostrar Receta</title>
+    </head>
+    <body>
+        <h1>Detalles de la Receta</h1>
+        <p><strong>Nombre:</strong> {{ receta.nombre }}</p>
+        <p><strong>Porciones:</strong> {{ receta.porciones }}</p>
+        <p><strong>Dificultad:</strong> {{ receta.dificultad }}</p>
+        <p><strong>Ingredientes:</strong></p>
+        <ul>
+            {% for ingrediente in ingredientes_lista %}
+                <li>{{ ingrediente }}</li>
+            {% endfor %}
+        </ul>
+        <p><strong>Procedimiento:</strong></p>
+        <ol>
+            {% for paso in procedimiento_lista %}
+                <li>{{ paso }}</li>
+            {% endfor %}
+        </ol>
+    </body>
+
+{%endblock usuers%}

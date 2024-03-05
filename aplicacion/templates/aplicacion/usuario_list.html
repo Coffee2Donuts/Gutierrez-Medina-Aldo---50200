@@ -1,55 +1,33 @@
-{% extends 'aplicacion/home3.html' %}
+{% extends 'aplicacion/home2.html' %}
 
-{%block usuers%}
-<table>
-    <tr>
-        <td width="200"><h2>Usuario</h2></td>
-        <td>
-            <a
-            href="{% url 'registro' %}"
-            class="btn btn-primary btn-sm"
-            ><i class="fa fa-plus fa-lg" title="Crear"> </i>
-            </a>
-        </td>
-    </tr>
-</table>
+{% block contenido %}
+<body>
+    <!-- Agregar el formulario de búsqueda -->
+    <form action="{% url 'buscarUsuarios' %}" method="GET">
+        <input type="text" name="buscar" placeholder="Buscar usuarios...">
+        <button type="submit" class="btn btn-primary">Buscar</button>
+    </form>
+
+    <!-- Agregar la tabla de resultados -->
     <table class="table table-striped">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Nombre</th>
-                <th>Apellido</th>
-                <th>Email</th>
+                <th>Nombre de Usuario</th>
+                <th>Número de Recetas</th>
                 <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
-            <!--Mostrar usuarios -->
-            {% for y in usuario_list %}
-                    <tr>
-                        <td>{{ y.id }}</td>
-                        <td>{{ y.nombre }}</td>
-                        <td>{{ y.apellido }}</td>
-                        <td>{{ y.email }}</td>
-                        <td>
-
-                            <!--Editar usuarios -->
-                            <a
-                              href="{% url 'usuario_edit' y.id %}"
-                              class="btn btn-primary"
-                              style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;"
-                              ><i class="fa fa-edit fa-sm" title="Edit Record"></i>
-                            </a>
-                            <a
-                              href="{% url 'usuario_delete' y.id %}"
-                              class="btn btn-danger"
-                              style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;"
-                              ><i class="fa fa-trash fa-sm" title="Delete Record"></i>
-                            </a>                
-                          </td>
-                    </tr>
+            {% for usuario in usuarios %}
+            <tr>
+                <td>{{ usuario.username }}</td>
+                <td>{{ usuario.num_recetas }}</td>
+                <td>
+                    <a href="{% url 'ver_recetas_usuario' usuario_id=usuario.id %}" class="btn btn-primary">Ver Recetas</a>
+                </td>
+            </tr>
             {% endfor %}
-        
         </tbody>
     </table>
-{%endblock usuers%}
+</body>
+{% endblock contenido %}

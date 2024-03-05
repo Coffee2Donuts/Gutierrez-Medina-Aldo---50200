@@ -6,29 +6,33 @@
 <div class="intro-button mx-auto"><a class="btn btn-primary btn-xl" href="{% url 'recetas_form' %}">Crear nueva receta</a></div>
 
 <!-- Tabla de mis recetas -->
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th>Nombre</th>
-            <th>Porciones</th>
-            <th>Dificultad</th>
-            <th>Acciones</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for receta in recetass %}
+{% if recetass %}
+    <table class="table table-striped">
+        <thead>
             <tr>
-                <td>{{ receta.nombre }}</td>
-                <td>{{ receta.porciones }}</td>
-                <td>{{ receta.dificultad }}</td>
-                <td>
-                    <a href="{% url 'mostrar_receta' receta_id=receta.id %}" class="btn btn-primary"><i class="fas fa-eye"></i> Ver</a>
-                    <a href="{% url 'receta_edit' pk=receta.pk %}" class="btn btn-success"><i class="fas fa-edit"></i> Editar</a>
-                    <a href="{% url 'receta_delete' pk=receta.pk %}" class="btn btn-danger"><i class="fas fa-trash-alt"></i> Borrar</a>
-                </td>
+                <th>Nombre</th>
+                <th>Porciones</th>
+                <th>Dificultad</th>
+                <th>Acciones</th>
             </tr>
-        {% endfor %}
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            {% for receta in recetass %}
+                <tr>
+                    <td>{{ receta.nombre }}</td>
+                    <td>{{ receta.porciones }}</td>
+                    <td>{{ receta.dificultad }}</td>
+                    <td>
+                        <a href="{% url 'mostrar_receta' receta_id=receta.id %}" class="btn btn-primary"><i class="fas fa-eye"></i> Ver</a>
+                        <a href="{% url 'receta_edit' pk=receta.pk %}" class="btn btn-success"><i class="fas fa-edit"></i> Editar</a>
+                        <a href="{% url 'receta_delete' pk=receta.pk %}" class="btn btn-danger"><i class="fas fa-trash-alt"></i> Borrar</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p>No haz creado ninguna receta</p>
+{% endif %}
 
 {% endblock contenido %}

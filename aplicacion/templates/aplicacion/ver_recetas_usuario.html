@@ -1,0 +1,41 @@
+{% extends 'aplicacion/home2.html' %}
+
+{% block contenido %}
+
+<head>
+    <meta charset="UTF-8">
+    <title>Recetas de {{ usuario.username }}</title>
+</head>
+<body>
+
+{% if recetas_usuario %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Dificultad</th>
+                <th>Porciones</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for receta in recetas_usuario %}
+            <tr>
+                <td>{{ receta.nombre }}</td>
+                <td>{{ receta.dificultad }}</td>
+                <td>{{ receta.porciones }}</td>
+                <td><a href="{% url 'mostrar_receta' receta_id=receta.id %}" class="btn btn-primary">Ver Receta Completa</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p>No se encontraron recetas creadas por {{ usuario.username }}</p>
+{% endif %}
+
+</body>
+
+{% endblock contenido %}
+
+
+

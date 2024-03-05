@@ -11,12 +11,11 @@ urlpatterns = [
     path('bienvenido/', bienvenido, name="bienvenido"),
     
     #urls relacionadas con los usuarios
-    path('usuario/', UsuariosList.as_view(), name="usuario"),
-    path('usuario_create/', UsuarioCreate.as_view(), name="usuario_create"),
-    path('usuario_edit/<int:pk>/', UsuarioEdit.as_view(), name="usuario_edit"),
-    path('usuario_delete/<int:pk>/', UsuarioDelete.as_view(), name="usuario_delete"),
+    path('usuarios/', views.usuario_list, name='usuario_list'),
+    path('usuarios/<int:usuario_id>/recetas/', views.ver_recetas_usuario, name='ver_recetas_usuario'),
     path('edit_perfil/', editarPerfil, name="edit_perfil"),
     path('avatar/', agregarAvatar, name="avatar"),
+    path('buscarUsuarios/', buscarUsuarios, name="buscarUsuarios"),
 
     #urls relacionadas con chefs
     path('chefs/', chefs, name="chefs"),
@@ -33,9 +32,11 @@ urlpatterns = [
     path('mostrar_receta/<int:receta_id>/', views.mostrar_receta, name='mostrar_receta'),
     path('receta_edit/<int:pk>/', RecetaEdit.as_view(), name="receta_edit"),
     path('receta_delete/<int:pk>/', RecetaDelete.as_view(), name="receta_delete"),
+    path('receta/<int:receta_id>/', views.mostrar_receta, name='mostrar_receta'),
 
     #urls de login, registro de nuevo usuario y logout(que no sirve)
     path('login/', login_request, name="login"),
     path('registro/', register, name="registro"),
-    path('logout/', LogoutView.as_view(template_name="aplicacion/logout.html"), name="logout"),
+    path('logout/', views.logout_usuario, name='logout'),
+    #path('logout/', LogoutView.as_view(template_name="aplicacion/logout.html"), name="logout"),
 ]
