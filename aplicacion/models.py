@@ -24,6 +24,18 @@ class Avatar(models.Model):
     def __str__(self):
         return f"{self.user} {self.imagen}" 
     
+class Comentario(models.Model):
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE)
+    receta = models.ForeignKey(Recetas, on_delete=models.CASCADE, related_name='comentarios')
+    texto = models.TextField()
+    fecha_creacion = models.DateTimeField(auto_now_add=True)
+    avatar = models.ForeignKey(Avatar, on_delete=models.SET_NULL, null=True, blank=True)
+
+    def __str__(self):
+        return f"Comentario de {self.usuario.username} en {self.receta.nombre}"
+
+
+    
 
 #Modelo de usuario utilizado en versiones del proyecto antigüas. Esta no tiene uso desde aproximadamente la version 4.0
 class Usuario(models.Model):

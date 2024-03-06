@@ -25,4 +25,35 @@
         <img src="{{ receta.imagen.url }}" alt="{{ receta.nombre }}">
     {% endif %}
 
+    <!-- Formulario para agregar comentario -->
+    <h3>Agregar Comentario</h3>
+    <form action="{% url 'agregar_comentario' receta.id %}" method="post">
+        {% csrf_token %}
+        <textarea name="texto" rows="4" cols="50" placeholder="Escribe tu comentario aquí"></textarea><br>
+        <input type="submit" value="Agregar Comentario">
+    </form>
+
+    <!-- Mostrar comentarios existentes -->
+    <h3>Comentarios</h3>
+    <ul>
+        {% for comentario in receta.comentarios.all %}
+            <li>
+                {% if comentario.avatar %}
+                    <!-- Mostrar avatares y nombre -->
+                    <img src="{{ comentario.avatar.imagen.url }}" alt="{{ comentario.usuario.username }}" style="width: 25px; height: 25px;">
+                {% else %}
+                    <img src="/media/avatares/default.png" alt="Avatar predeterminado" style="width: 25px; height: 25px;">
+                {% endif %}
+                {{ comentario.usuario.username }} - {{ comentario.texto }} - {{ comentario.fecha_creacion|date:"d/m/Y" }}
+            </li>
+        {% empty %}
+            <li>No hay comentarios todavía.</li>
+        {% endfor %}
+    </ul>
+    
+    
+    
+    
+    
+
 {% endblock lista %}

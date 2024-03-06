@@ -6,6 +6,8 @@ from .forms import *
 
 from django.shortcuts import get_object_or_404, redirect
 
+from django.core.exceptions import ObjectDoesNotExist
+
 from django.views.generic import ListView
 from django.views.generic import CreateView
 from django.views.generic import UpdateView
@@ -54,63 +56,10 @@ def ver_recetas_usuario(request, usuario_id):
 def buscarUsuarios(request):
     if 'buscar' in request.GET:
         patron = request.GET["buscar"]
-        usuarios = User.objects.filter(username__icontains=patron)
+        usuarios = User.objects.filter(username__icontains=patron).annotate(num_recetas=Count('recetas'))
         contexto = {"usuarios": usuarios}
         return render(request, "aplicacion/usuario_list.html", contexto)
     return HttpResponse("No se ingresaron patrones de búsqueda")
-
-
-#_______________________________________________________________________________________________Chefs
-@login_required
-def chefs(request):
-    contexto = {'chefsito': Chef.objects.all()}
-    return render(request, "aplicacion/chefs.html", contexto)
-
-@login_required
-def chef_Form(request):
-    if request.method == "POST":
-        miForm = Chef_Form(request.POST)
-        if miForm.is_valid():
-            chef_nombre = miForm.cleaned_data.get("nombre")
-            chef_apellido = miForm.cleaned_data.get("apellido")
-            chef_email = miForm.cleaned_data.get("email")
-            chef_especialidad = miForm.cleaned_data.get("especialidad")
-            chef = Chef(nombre=chef_nombre, apellido=chef_apellido,
-                                email=chef_email, especialidad=chef_especialidad)
-            chef.save()
-            return redirect(reverse_lazy('chefs'))
-
-    else:    
-        miForm = Chef_Form()
-
-    return render(request, "aplicacion/chef_Form.html", {"form": miForm }) 
-
-@login_required
-def updateChef(request, id_chef):
-    chef = Chef.objects.get(id=id_chef)
-    if request.method == "POST":
-        miForm = Chef_Form(request.POST)
-        if miForm.is_valid():
-            chef.nombre = miForm.cleaned_data.get('nombre')
-            chef.apellido = miForm.cleaned_data.get('apellido')
-            chef.email = miForm.cleaned_data.get('email')
-            chef.especialidad = miForm.cleaned_data.get('especialidad') 
-            chef.save()
-            return redirect(reverse_lazy('chefs'))   
-    else:
-        miForm = Chef_Form(initial={
-            'nombre': chef.nombre,
-            'apellido': chef.apellido,
-            'email': chef.email,
-            'especialidad': chef.especialidad,
-        })
-    return render(request, "aplicacion/chef_Form.html", {'form': miForm})
-
-@login_required
-def borrarChef(request, id_chef):
-    chef = Chef.objects.get(id=id_chef)
-    chef.delete()
-    return redirect(reverse_lazy('chefs'))
 
 
 #_______________________________________________________________________________________________Recetas
@@ -128,6 +77,7 @@ def mis_recetas(request):
 
 @login_required
 def receta_Form(request):
+    #Formulario para crear recetas
     if request.method == "POST":
         mi_form = RecetaForm(request.POST, request.FILES)
         if mi_form.is_valid():
@@ -173,6 +123,23 @@ def mostrar_receta(request, receta_id):
         'procedimiento_lista': procedimiento_lista
     })
 
+def agregar_comentario(request, receta_id):
+    receta = get_object_or_404(Recetas, id=receta_id)
+    
+    if request.method == 'POST':
+        texto = request.POST.get('texto')
+        try:
+            avatar = Avatar.objects.get(user=request.user)
+        except Avatar.DoesNotExist:
+            avatar = None  # Si no hay avatar, asignamos None
+        
+        comentario = Comentario(usuario=request.user, receta=receta, texto=texto, avatar=avatar)
+        comentario.save()
+        return redirect('mostrar_receta', receta_id=receta_id)
+
+    return render(request, 'aplicacion/agregar_comentario.html', {'receta': receta})
+
+
 @login_required
 def buscar(request):
     return render(request, "aplicacion/buscar.html")
@@ -190,27 +157,21 @@ def buscarRecetas(request):
 #_______________________________________________________________________________________________Login, Logout, Registro
 def login_request(request):
     if request.method == "POST":
-        usuario = request.POST['username']
-        password = request.POST['password']
+        usuario = request.POST.get('username')
+        password = request.POST.get('password')
         user = authenticate(request, username=usuario, password=password)
         if user is not None:
             login(request, user)
-        #___________________________________________________________ Avatar
             try:
-                avatar = Avatar.objects.get(user=request.user.id).imagen.url
-            except:
+                avatar = Avatar.objects.get(user=user).imagen.url
+            except ObjectDoesNotExist:
                 avatar = "/media/avatares/default.png"
-            finally:
-                request.session["avatar"] = avatar
+            request.session["avatar"] = avatar
             return render(request, "aplicacion/bienvenido.html")
-        
-        #___________________________________________________________
         else:
             return redirect(reverse_lazy('login'))
-        
     miForm = AuthenticationForm()
-
-    return render(request, "aplicacion/login.html", {"form": miForm })    
+    return render(request, "aplicacion/login.html", {"form": miForm }) 
 
 def register(request):
     if request.method == "POST":
@@ -273,3 +234,59 @@ def agregarAvatar(request):
         form = AvatarForm()
 
     return render(request, "aplicacion/avatar.html", {"form": form }) 
+
+
+#_______________________________________________________________________________________________Chefs
+
+#Estas funciones ya no se utilizaron a partir de la version 4.0 del proyecto pero si funcionan
+
+@login_required
+def chefs(request):
+    contexto = {'chefsito': Chef.objects.all()}
+    return render(request, "aplicacion/chefs.html", contexto)
+
+@login_required
+def chef_Form(request):
+    if request.method == "POST":
+        miForm = Chef_Form(request.POST)
+        if miForm.is_valid():
+            chef_nombre = miForm.cleaned_data.get("nombre")
+            chef_apellido = miForm.cleaned_data.get("apellido")
+            chef_email = miForm.cleaned_data.get("email")
+            chef_especialidad = miForm.cleaned_data.get("especialidad")
+            chef = Chef(nombre=chef_nombre, apellido=chef_apellido,
+                                email=chef_email, especialidad=chef_especialidad)
+            chef.save()
+            return redirect(reverse_lazy('chefs'))
+
+    else:    
+        miForm = Chef_Form()
+
+    return render(request, "aplicacion/chef_Form.html", {"form": miForm }) 
+
+@login_required
+def updateChef(request, id_chef):
+    chef = Chef.objects.get(id=id_chef)
+    if request.method == "POST":
+        miForm = Chef_Form(request.POST)
+        if miForm.is_valid():
+            chef.nombre = miForm.cleaned_data.get('nombre')
+            chef.apellido = miForm.cleaned_data.get('apellido')
+            chef.email = miForm.cleaned_data.get('email')
+            chef.especialidad = miForm.cleaned_data.get('especialidad') 
+            chef.save()
+            return redirect(reverse_lazy('chefs'))   
+    else:
+        miForm = Chef_Form(initial={
+            'nombre': chef.nombre,
+            'apellido': chef.apellido,
+            'email': chef.email,
+            'especialidad': chef.especialidad,
+        })
+    return render(request, "aplicacion/chef_Form.html", {'form': miForm})
+
+@login_required
+def borrarChef(request, id_chef):
+    chef = Chef.objects.get(id=id_chef)
+    chef.delete()
+    return redirect(reverse_lazy('chefs'))

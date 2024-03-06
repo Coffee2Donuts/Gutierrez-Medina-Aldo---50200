@@ -2,13 +2,8 @@ from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from .models import Recetas
+from .models import Comentario
 
-#class RecetaForm(forms.Form):
-    #nombre = forms.CharField(max_length=60, required=True)
-    #dificultad = forms.IntegerField(min_value=1, max_value=10, required=True)
-    #porciones = forms.IntegerField(required=True)
-    #ingredientes = forms.CharField(max_length=500, widget=forms.Textarea(attrs={'rows':5, 'cols':50 }), required=True)
-    #procedimiento = forms.CharField(max_length=500, widget=forms.Textarea(attrs={'rows':5, 'cols':50 }), required=True)
 
 class RecetaForm(forms.ModelForm):
     class Meta:
@@ -70,3 +65,18 @@ class UserEditForm(UserCreationForm):
 
 class AvatarForm(forms.Form):
     imagen = forms.ImageField(required=True)
+
+
+class ComentarioForm(forms.ModelForm):
+    class Meta:
+        model = Comentario
+        fields = ['texto']
+
+
+#Formulario de recetas antigüo
+#class RecetaForm(forms.Form):
+    #nombre = forms.CharField(max_length=60, required=True)
+    #dificultad = forms.IntegerField(min_value=1, max_value=10, required=True)
+    #porciones = forms.IntegerField(required=True)
+    #ingredientes = forms.CharField(max_length=500, widget=forms.Textarea(attrs={'rows':5, 'cols':50 }), required=True)
+    #procedimiento = forms.CharField(max_length=500, widget=forms.Textarea(attrs={'rows':5, 'cols':50 }), required=True)
