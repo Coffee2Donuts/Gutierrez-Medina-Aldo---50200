@@ -6,8 +6,8 @@
 Pagina web para ver, crear, editar y comentar recetas de comida
 
 Usuario admin:
-Kouhi
-coder.login
+Nombre: Kouhi
+Contraseña: coder.login
 
 Casos de pruebas: https://1drv.ms/x/s!AkwI7NLlrfMtl0bS8rzSfxwfv8d7?e=b0mzIu
 Video de expliación: https://drive.google.com/file/d/1OhXgayIGUtu_1Bh6dfObawp81Tz_Norz/view?usp=drive_link
