@@ -1,11 +1,7 @@
-<<<<<<< HEAD
 # Nombre de Proyecto: Sabores en Red
 # Alumno: Aldo Gutierrez Medina
 # Fecha: 8/3/24
-# Version: 4.9
-=======
-Proyecto de Gutierrez Medina Aldo
->>>>>>> a1364510abd130f64171fa99f6934fe67664a8ff
+# Version: 5.0
 
 Pagina web para ver, crear, editar y comentar recetas de comida
 
@@ -13,19 +9,10 @@ Usuario admin:
 Kouhi
 coder.login
 
-<<<<<<< HEAD
 Casos de pruebas: https://1drv.ms/x/s!AkwI7NLlrfMtl0bS8rzSfxwfv8d7?e=b0mzIu
-Video de expliación: 
+Video de expliación: https://drive.google.com/file/d/1OhXgayIGUtu_1Bh6dfObawp81Tz_Norz/view?usp=drive_link
 
 =======
-=======
-
-Usuario admin:
-Kouhi
-coder.login
-
-
->>>>>>> a1364510abd130f64171fa99f6934fe67664a8ff
 Contiene:
 
 -Clases en modelos:
@@ -67,56 +54,4 @@ Contiene:
 
 -Las aplicaciones heredan templates de home.html home2.html y home3.html
 
-<<<<<<< HEAD
 =======
-=======
-
--Error no resuelto:
-!!!El logout no me funciona de ninguna manera.!!!
-
-Siempre me aparece lo siguiente:
-
-Method Not Allowed (GET): /aplicacion/logout/
-Method Not Allowed: /aplicacion/logout/
-
-Investigue el problema y encontré de debería cambiarlo al método POST lo cual quedaría en el logout.html así:
-
-______________________________________
-{% extends ‘aplicacion/home.html’ %}
-
-{% block logout %}
-
-{% csrf_token %}
-    <form action\=”” method\=“post”>
-    {% csrf_token %}
-
-    <button type\=“submit”>Logout</button>
-
-    </form>
-
-{% endblock logout %}
-_________________________________________
-
-La urls la intente poner de dos maneras:
-
-from django.contrib.auth.views import LogoutView
-path(‘logout/’, LogoutView.as_view(template_name=“aplicacion/logout.html”), name=“logout”),
-
-y
-
-from django.contrib.auth import views as auth_views
-path(‘logout/’, auth_views.LogoutView.as_view(), name\=‘logout’),
-
-También agregué lo siguiente a settings.py
-
-# URL de redireccionamiento después del logout
-LOGOUT_REDIRECT_URL = ‘/aplicacion/’
-
-Nada de lo anterior me funcionó 
-
-También hay un error con mostrar el avatar default:
-Not Found: /media/avatares/default.png
-Not Found: /aplicacion/ver_recetas/js/scripts.js
-
-
->>>>>>> a1364510abd130f64171fa99f6934fe67664a8ff
