@@ -20,7 +20,7 @@
         <header>
             <h1 class="site-heading text-center text-faded d-none d-lg-block">
                 <span class="site-heading-upper text-primary mb-3">Proyecto</span>
-                <span class="site-heading-lower">Recetario Online</span>
+                <span class="site-heading-lower">Sabores en Red</span>
             </h1>
         </header>
         <!-- Menu de Navegacion-->
@@ -31,12 +31,12 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mx-auto">
 
-                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="{% url 'bienvenido' %}">Bienvenido</a></li>
+                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="{% url 'bienvenido' %}">Inicio</a></li>
                         <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="{% url 'ver_recetas' %}">Ver Recetas</a></li>
                         <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="{% url 'mis_recetas' %}">Mis Recetas</a></li>
                         <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="{% url 'usuario_list' %}">Usuarios</a></li>
-                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="{% url 'chefs' %}">Chefs</a></li>
                         <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="{% url 'edit_perfil' %}">Perfil</a></li>
+                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="{% url 'about_me' %}">Acerca de mí</a></li>
 
                         <div class="navbar-nav ml-auto" style="display: flex; align-items: center;">
                             <p style="color: white; margin-left: 10px; margin-right: 10px;">Hola {{ user.username }}!</p>
@@ -63,7 +63,7 @@
                     </div>
                     <img class="product-item-img mx-auto d-flex rounded img-fluid mb-3 mb-lg-0" src="{% static 'assets/img/products-01.jpg' %}" alt="..." />
                     <div class="product-item-description d-flex me-auto">
-                        <div class="bg-faded p-5 rounded"><p class="mb-0">El recetario muestra tus creaciones en una tabla fácil de navegar. Además, puedes buscar recetas específicas. ¡Nunca más perderás esa receta deliciosa que encontraste en línea!</p></div>
+                        <div class="bg-faded p-5 rounded"><p class="mb-0">El recetario muestra tus creaciones en una tabla fácil de navegar. Además, puedes buscar recetas específicas incluso las recetas creadas por un usuario específico. ¡Nunca más perderás esa receta deliciosa que encontraste en línea!</p></div>
                     </div>
                 </div>
             </div>
@@ -81,7 +81,7 @@
                     </div>
                     <img class="product-item-img mx-auto d-flex rounded img-fluid mb-3 mb-lg-0" src="{% static 'assets/img/products-02.jpg' %}" alt="..." />
                     <div class="product-item-description d-flex ms-auto">
-                        <div class="bg-faded p-5 rounded"><p class="mb-0">Imagina que deseas cocinar para más o menos personas. El recetario web ajusta automáticamente la cantidad de ingredientes según las porciones que necesitas. Esto facilita la planificación y evita errores en la cocina.</p></div>
+                        <div class="bg-faded p-5 rounded"><p class="mb-0">Imagina que deseas cocinar para más o menos personas. El recetario web ajusta indica la cantidad de ingredientes según las porciones que necesitas. Esto facilita la planificación y evita errores en la cocina.</p></div>
                     </div>
                 </div>
             </div>
@@ -97,9 +97,9 @@
                             </h2>
                         </div>
                     </div>
-                    <img class="product-item-img mx-auto d-flex rounded img-fluid mb-3 mb-lg-0" src="{% static 'assets/img/products-03.jpg' %}" alt="..." />
+                    <img class="product-item-img mx-auto d-flex rounded img-fluid mb-3 mb-lg-0" src="/media/comida/edit_food.jpg" alt="..." />
                     <div class="product-item-description d-flex me-auto">
-                        <div class="bg-faded p-5 rounded"><p class="mb-0">El recetario te permite administrar tus recetas. Puedes editar, eliminar y filtrar las recetas que has agregado. Es como tener un archivo personalizado de tus platos preferidos.</p></div>
+                        <div class="bg-faded p-5 rounded"><p class="mb-0">El recetario te permite administrar tus recetas. Puedes crear, editar y eliminar las recetas que has agregado. Es como tener un archivo personalizado de tus platos preferidos.</p></div>
                     </div>
                 </div>
             </div>

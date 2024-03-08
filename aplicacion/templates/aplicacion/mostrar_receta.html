@@ -5,6 +5,7 @@
     <h2>{{ receta.nombre }}</h2>
     <p><strong>Porciones:</strong> {{ receta.porciones }}</p>
     <p><strong>Dificultad:</strong> {{ receta.dificultad }}</p>
+    <p><strong>Creada por:</strong> {{ receta.usuario.username }}</p> <!-- Aquí mostramos el nombre del usuario que creó la receta -->
     
     <h3>Ingredientes:</h3>
     <ul>
@@ -50,10 +51,5 @@
             <li>No hay comentarios todavía.</li>
         {% endfor %}
     </ul>
-    
-    
-    
-    
-    
 
 {% endblock lista %}

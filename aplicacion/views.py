@@ -37,6 +37,11 @@ def home3(request):
 def bienvenido(request):
     return render(request, "aplicacion/bienvenido.html")
 
+#______________________________________________________________________________________________Acerca de mí
+@login_required
+def aboutME(request):
+            return render(request, "aplicacion/about_me.html")
+
 
 #______________________________________________________________________________________________Usuarios
 @login_required
@@ -75,16 +80,27 @@ def mis_recetas(request):
     contexto = {'recetass': recetass}
     return render(request, "aplicacion/mis_recetas.html", contexto)
 
-@login_required
 def receta_Form(request):
-    #Formulario para crear recetas
     if request.method == "POST":
         mi_form = RecetaForm(request.POST, request.FILES)
         if mi_form.is_valid():
             receta = mi_form.save(commit=False)
             receta.usuario = request.user
+            
+            # Validación adicional para dificultad y porciones
+            dificultad = mi_form.cleaned_data['dificultad']
+            porciones = mi_form.cleaned_data['porciones']
+
+            if dificultad < 1 or dificultad > 10:
+                mi_form.add_error('dificultad', 'La dificultad debe estar entre 1 y 10.')
+                return render(request, "aplicacion/recetas_form.html", {"form": mi_form })
+
+            if porciones < 1 or porciones > 20:
+                mi_form.add_error('porciones', 'Las porciones deben estar entre 1 y 20.')
+                return render(request, "aplicacion/recetas_form.html", {"form": mi_form })
+
             receta.save()
-            return redirect("ver_recetas")
+            return redirect("mis_recetas")
     else:
         mi_form = RecetaForm()
     
@@ -104,6 +120,8 @@ class RecetaEdit(LoginRequiredMixin, UpdateView):
         kwargs = super().get_form_kwargs()
         kwargs['instance'] = self.get_object()  # Pasar la instancia de la receta al formulario
         return kwargs
+    
+    
 
 class RecetaDelete(LoginRequiredMixin, DeleteView):
     model = Recetas

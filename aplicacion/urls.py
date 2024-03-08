@@ -38,6 +38,10 @@ urlpatterns = [
     path('logout/', views.logout_usuario, name='logout'),
     #path('logout/', LogoutView.as_view(template_name="aplicacion/logout.html"), name="logout"), (esta versión de logout no funcionó)
 
+    #Acerca de mí
+    path('about_me/', aboutME, name="about_me"),
+    
+    
     #urls relacionadas con chefs (no se utilizan a partir de la version 4.0 del proyecto)
     path('chefs/', chefs, name="chefs"),
     path('chef_Form/', chef_Form, name="chef_Form"),

@@ -7,7 +7,7 @@
         <meta name="description" content="" />
         <meta name="author" content="" />
         <title>Recetario online - Start Bootstrap Theme</title>
-        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+        <link rel="icon" type="image/x-icon" href="{% static 'assets/favicon.ico' %}" />
         <!-- Google fonts-->
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet" />
         <link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i" rel="stylesheet" />
@@ -21,7 +21,7 @@
         <header>
             <h1 class="site-heading text-center text-faded d-none d-lg-block">
                 <span class="site-heading-upper text-primary mb-3">Proyecto</span>
-                <span class="site-heading-lower">Recetario Online</span>
+                <span class="site-heading-lower">Sabores en Red</span>
             </h1>
         </header>
 
@@ -36,12 +36,13 @@
                     <ul class="navbar-nav mx-auto">
         
                         <ul class="navbar-nav mx-auto">
-                            <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="{% url 'bienvenido' %}">Bienvenido</a></li>
+                            <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="{% url 'bienvenido' %}">Inicio</a></li>
                             <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="{% url 'ver_recetas' %}">Ver Recetas</a></li>
                             <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="{% url 'mis_recetas' %}">Mis Recetas</a></li>
                             <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="{% url 'usuario_list' %}">Usuarios</a></li>
-                            <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="{% url 'chefs' %}">Chefs</a></li>
                             <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="{% url 'edit_perfil' %}">Perfil</a></li>
+                            <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="{% url 'about_me' %}">Acerca de mí</a></li>
+                            
                         
                             <div class="navbar-nav ml-auto" style="display: flex; align-items: center;">
                                 <p style="color: white; margin-left: 10px; margin-right: 10px;">Hola {{ user.username }}!</p>

@@ -7,8 +7,8 @@ class Recetas(models.Model):
     nombre = models.CharField(max_length=60)
     dificultad = models.IntegerField()
     porciones = models.IntegerField()
-    ingredientes = models.CharField(max_length=500)
-    procedimiento = models.CharField(max_length=500)
+    ingredientes = models.CharField(max_length=1500)
+    procedimiento = models.CharField(max_length=1500)
     usuario = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
     imagen = models.ImageField(upload_to='comida/', blank=True, null=True)
 

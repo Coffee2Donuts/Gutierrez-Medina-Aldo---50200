@@ -11,17 +11,20 @@
 
     <table> 
         {% for field in form %}
-            <tr>
-                <td>{{ field.label_tag }}</td>
-                <td>
-                    {% if field.name == 'ingredientes' or field.name == 'procedimiento' %}
-                        <textarea name="{{ field.name }}" id="{{ field.name }}" rows="5" cols="50"></textarea>
-                    {% else %}
-                        {{ field }}
-                    {% endif %}
-                </td>
-            </tr>
-        {% endfor %}
+    <tr>
+        <td>{{ field.label_tag }}</td>
+        <td>
+            {% if field.name == 'ingredientes' or field.name == 'procedimiento' %}
+                <textarea name="{{ field.name }}" id="{{ field.name }}" rows="5" cols="50"></textarea>
+            {% else %}
+                {{ field }}
+                {% if field.errors %}
+                    <div class="error">{{ field.errors }}</div>
+                {% endif %}
+            {% endif %}
+        </td>
+    </tr>
+{% endfor %}
     </table>
     
 

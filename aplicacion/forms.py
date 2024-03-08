@@ -9,6 +9,7 @@ class RecetaForm(forms.ModelForm):
     class Meta:
         model = Recetas
         fields = ['nombre', 'dificultad', 'porciones', 'ingredientes', 'procedimiento', 'imagen']
+        labels = {'dificultad': 'Dificultad (1 al 10)',}
         widgets = {
             'ingredientes': forms.Textarea(attrs={'rows': 5, 'cols': 50}),
             'procedimiento': forms.Textarea(attrs={'rows': 5, 'cols': 50}),
@@ -22,11 +23,20 @@ class RecetaEditForm(UserCreationForm):
     nombre = forms.CharField(max_length=60, required=False)
     dificultad = forms.IntegerField(min_value=1, max_value=10, required=False)
     porciones = forms.IntegerField(required=False)
-    ingredientes = forms.CharField(label="Ingredientes", max_length=500, widget=forms.Textarea(attrs={'rows':5, 'cols':50 }), required=False)
-    procedimiento = forms.CharField(max_length=500, widget=forms.Textarea(attrs={'rows':5, 'cols':50 }), required=False)
+    ingredientes = forms.CharField(label="Ingredientes", max_length=1500, widget=forms.Textarea(attrs={'rows':5, 'cols':50 }), required=False)
+    procedimiento = forms.CharField(max_length=1500, widget=forms.Textarea(attrs={'rows':5, 'cols':50 }), required=False)
     class Meta:
         model = Recetas
         fields = ['nombre', 'dificultad', 'porciones', 'ingredientes', 'procedimiento', 'imagen']
+        labels = {'dificultad': 'Dificultad (1 al 10)',}
+        widgets = {
+            'ingredientes': forms.Textarea(attrs={'rows': 5, 'cols': 50}),
+            'procedimiento': forms.Textarea(attrs={'rows': 5, 'cols': 50}),
+        }
+
+    def __init__(self, *args, **kwargs):
+        super(RecetaForm, self).__init__(*args, **kwargs)
+        self.fields['imagen'].widget.attrs['accept'] = 'image/*'
     
 
 class UsuarioForm(forms.Form):

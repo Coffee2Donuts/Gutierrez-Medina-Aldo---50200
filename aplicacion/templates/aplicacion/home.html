@@ -21,7 +21,7 @@
         <header>
             <h1 class="site-heading text-center text-faded d-none d-lg-block">
                 <span class="site-heading-upper text-primary mb-3">Proyecto</span>
-                <span class="site-heading-lower">Recetario Online</span>
+                <span class="site-heading-lower">Sabores en Red</span>
             </h1>
         </header>
         <!-- Navigation-->
@@ -35,12 +35,12 @@
                         
                             
                         {% if user.is_authenticated %}
-                            <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="{% url 'bienvenido' %}">Bienvenido</a></li>
+                            <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="{% url 'bienvenido' %}">Inicio</a></li>
                             <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="{% url 'ver_recetas' %}">Ver Recetas</a></li>
                             <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="{% url 'mis_recetas' %}">Mis Recetas</a></li>
                             <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="{% url 'usuario_list' %}">Usuarios</a></li>
-                            <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="{% url 'chefs' %}">Chefs</a></li>
                             <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="{% url 'edit_perfil' %}">Perfil</a></li>
+                            <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="{% url 'about_me' %}">Acerca de mí</a></li>
 
                             <div class="navbar-nav ml-auto" style="display: flex; align-items: center;">
                                 <p style="color: white; margin-left: 10px; margin-right: 10px;">Hola {{ user.username }}!</p>
@@ -56,7 +56,7 @@
 
 
                         {% else %}
-                            <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="{% url 'home' %}">Menu</a></li>
+                            <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="{% url 'home' %}">Inicio</a></li>
                             <a class="btn btn-primary px-lg-4" href="{% url 'login' %}">Login</a>
                             <a class="btn btn-success" href="{% url 'registro' %}">Registro</a>
 
@@ -85,26 +85,7 @@
                 </div>
             </div>
         </section>
-        <section class="page-section cta">
-            <div class="container">
-                <div class="row">
-                    <div class="col-xl-9 mx-auto">
-                        <div class="cta-inner bg-faded text-center rounded">
-                            <h2 class="section-heading mb-4">
-                                <span class="section-heading-upper">
-                                                    
-                                    {% block logout %}
-                                
-                                    {% endblock logout %}
-                                                        
-                                </span>
-                                <span class="section-heading-lower"></span>
-                            </h2>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+        
         <footer class="footer text-faded text-center py-5">
             <div class="container"><p class="m-0 small">Copyright &copy; Your Website 2023</p></div>
         </footer>
